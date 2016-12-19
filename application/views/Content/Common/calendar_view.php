@@ -4,7 +4,7 @@
 <script>
 
 	$(document).ready(function() {
-		
+
 		$('#calendar').fullCalendar({
 			header: {
 				left: 'prev, today',
@@ -15,7 +15,7 @@
 			navLinks: true, // can click day/week names to navigate views
 			selectable: true,
 			selectHelper: true,
-			
+
 			editable: false,    //dragable
 			eventLimit: 1, // allow "more" link when too many events
 			events: [
@@ -23,7 +23,7 @@
 					title: 'Conference',
 					start: '2016-08-31'
 				},
-               
+
                 {
 					title: 'Film Viewing',
 					start: '2016-09-01'
@@ -42,19 +42,17 @@
 					title: 'Halaj Seminar',
 					start: '2016-09-11',
 				}
-				
+
 			],
            dayClick: function(date, jsEvent, view) {
                $('.ui.small.modal').modal('show'); 
-
-
     }
 		});
 	});
 
 </script>
 <style>
-   
+
 	body {
 		padding: 0;
 		font-family: "Montserrat",Helvetica,Arial,Verdana,sans-serif;
@@ -64,9 +62,9 @@
 	#calendar {
 		width: 850px;
 		margin: 0 auto;
-		
+
 	}
-    
+
 
     .fc-toolbar{
         background-color: #24a033;
@@ -98,7 +96,7 @@ text-align:;
         color:
     }
     a{
-        color:#353936; 
+        color:#353936;
 }
 </style>
 <div class="ui small modal">
@@ -128,6 +126,3 @@ text-align:;
   </div>
 </div>
 	<div id='calendar'></div>
-	
-	
-

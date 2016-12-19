@@ -17,8 +17,11 @@ class main extends CI_Controller {
 
     }
     public function login(){
-    $this->load->view('landingpage');
+      if($this->session->userdata('is_logged_in')) {
+        header('location:' .base_url('main/members'));
+      }
 
+      $this->load->view('landingpage');
     }
 
     public function registration_show() {
@@ -189,7 +192,7 @@ class main extends CI_Controller {
           $newpassword = array (
                                 'password' => $this->input->post('newpassword')
                                 );
-                                
+
           $this->model_users->change($email, $newpassword);
           // echo json_encode($this->session->userdata());
         }
