@@ -1,8 +1,8 @@
 <?php
 class Model_users extends CI_Model
 {
-	
-	
+
+
 	public function register_insert($data){
 
 		$condition = "email =" . "'" . $data['email'] . "'";
@@ -54,27 +54,14 @@ class Model_users extends CI_Model
   	 	return $query->result();
   	 }
   	     //change data sa database
-    public function change(){
+    public function change($email = FALSE, $newpassword){
+			$this->db->start_cache();
+			$this->db->flush_cache();
 
-        $session_data = $this->session->userdata('logged_in');
-        $query = $this-> db ->query("SELECT email FROM test WHERE 'email' = ".$this->session->userdata('email'));
-        foreach ($query->result() as $my_info) {
-            
-            $db_password = $my_info->password;
-            $db_email = $my_info->email;
-        }
+			if($email)
+				$this->db->where('email', $email);
 
-        if($this->input->post("oldpassword") == $db_password){
-
-            $fixed_pw = mysql_real_escape_string($this->input->post("newpassword"));
-            $update = $this-> db ->query("UPDATE test SET password = '$fixed_pw' WHERE email = '$db_email'")or die(mysql_error());
-            $this->form_validation->set_message('change', '<div class="alert alert-success"><a href="#" class="close"data-dismiss="alert">&times;</a><strong>Password Updated!</strong></div>');
-                return false;
-        }else
-
-        $this->form_validation->set_message('change', '<div class="alert alert-error"><a href="" class="close" data-dismiss="alert">&times;</a> <strong>Wrong Old Password!</strong> </div>');
-            return false;
-        
+			return $this->db->update('test', $newpassword);
     }
 
 }

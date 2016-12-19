@@ -9,16 +9,16 @@ class main extends CI_Controller {
         parent::__construct();
         $this->load->model('user/user_model','m');
         $this->load->model('hallModel','hallM');
-      }       
+      }
 
 	public function index()
 	{
     $this->login();
-        
+
     }
     public function login(){
     $this->load->view('landingpage');
-   
+
     }
 
     public function registration_show() {
@@ -27,7 +27,7 @@ class main extends CI_Controller {
 
     public function new_user_register(){
 
-        
+
         $this->load->helper(array('form','url'));
 
         $this->load->library('form_validation');
@@ -45,7 +45,7 @@ class main extends CI_Controller {
             $this->load->view('content/common/registration_view');
         }else{
 
-        
+
                 $this->load->model('model_users');
 
                 $fname = $this->input->post('firstname');
@@ -76,7 +76,7 @@ class main extends CI_Controller {
                     $data['message_display'] = 'Email Already Exist';
                     $this->load->view('content/common/registration_view', $data);
                 }
-            
+
         }
 
       /*  $this->load->model('model_users');
@@ -99,7 +99,7 @@ class main extends CI_Controller {
         $this->model_users->register_insert($data); */
 
     }
-   
+
 
    public function members(){
         if($this->session->userdata('is_logged_in'))
@@ -113,11 +113,11 @@ class main extends CI_Controller {
         redirect('main/restricted');
        }
     }
-    
+
     public function restricted(){
         $this->load->view('restricted');
     }
-    
+
      public function login_validation(){
 
 
@@ -125,7 +125,7 @@ class main extends CI_Controller {
 
     $this->form_validation->set_rules('email', 'Email' , 'required|trim|callback_validate_credentials');
     $this->form_validation->set_rules('password', 'Password' , 'required');
-         
+
          if ($this->form_validation->run()){
             $data = array(
                 'email' => $this->input->post('email'),
@@ -154,11 +154,11 @@ class main extends CI_Controller {
     public function viewHall()
     {
         $data['halls']= $this->hallM->getHall();
-        $this->load->view('Header/common/userheader');  
+        $this->load->view('Header/common/userheader');
         $this->load->view('Content/Admin/editHall',$data);
         $this->load->view('footer/footer');
     }
-   
+
     public function logout(){
         $this->session->sess_destroy();
         redirect('main/index');
@@ -178,18 +178,24 @@ class main extends CI_Controller {
         $this->load->model('model_users');
         $this->form_validation->set_rules('oldpassword' , 'Old password' , 'required');
         $this->form_validation->set_rules('newpassword' , 'New password' , 'required');
-        $this->form_validation->set_rules('confirmpassword', 'Confrim password', 'required');
+        $this->form_validation->set_rules('confirmpassword', 'Confirm password', 'required');
 
         if($this->form_validation->run() == FALSE){
 
-            echo validation_errors();
+          echo validation_errors();
         }else{
+          $email = $this->session->userdata('email');
 
-            $this->model_users->change();
+          $newpassword = array (
+                                'password' => $this->input->post('newpassword')
+                                );
+                                
+          $this->model_users->change($email, $newpassword);
+          // echo json_encode($this->session->userdata());
         }
     }
 
-    
 
-    
+
+
 }

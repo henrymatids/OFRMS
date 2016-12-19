@@ -1,16 +1,16 @@
 
 <!-- End of top menu -->
-<form action = "<?php echo base_url() ?>main/changepassword" method = "post">
+<form id="changePasswordForm" action = "<?php echo base_url() ?>main/changepassword" method = "post">
 <h3 class="ui myinverted top attached header">
   CHANGE PASSWORD
 </h3>
 <div class="ui attached segment">
- 
- 
+
+
   <div class="ui three column centered  grid stackable">
   <div class="column">
-   <label for="">Old Password</label>
-    <div class="ui input fluid">
+    <label for="">Old Password</label>
+  <div class="ui input fluid">
   <input placeholder="Old Password" type="password" name ="oldpassword">
 </div>
   </div>
@@ -33,13 +33,13 @@
 </div>
  <div class="ui three column centered stackable grid fluid">
     <div class="column"></div>
-    
+
     <div class="grid six column row">
     <div class="column"><button class="ui positive button fluid" type= "submit">Save</button></div>
     <div class="column"><button class="ui negative button fluid">Cancel</button></div>
     </form>
      </div>
-    
+
     <div class="column"></div>
 </div>
 </div>
